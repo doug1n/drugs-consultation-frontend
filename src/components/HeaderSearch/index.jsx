@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
+
+import HeaderSearchSuggestion from '../HeaderSearchSuggestion';
 
 const Container = styled.View`
   margin-top: 20px;
@@ -10,9 +12,10 @@ const Container = styled.View`
 
 const SearchContainer = styled.View`
   flex-direction: row;
+  z-index: 2;
 `;
 
-const TextField = styled.View`
+const InputWithSuggestion = styled.View`
   height: 48px;
   flex: 1;
   background-color: #265ad2;
@@ -23,6 +26,7 @@ const TextField = styled.View`
 const Input = styled.TextInput`
   font-size: 14px;
   padding-left: 20px;
+  color: #fff;
 `;
 
 const SearchButton = styled.View`
@@ -51,15 +55,27 @@ const TextSearchByAtcButton = styled.Text`
 `;
 
 export default function HeaderSearch() {
+  const [openSuggestion, setOpenSuggestion] = useState(false);
+
+  const handleChangeSearchText = (text) => {
+    if (text) {
+      setOpenSuggestion(true);
+    } else {
+      setOpenSuggestion(false);
+    }
+  };
+
   return (
     <Container>
+      <HeaderSearchSuggestion open={openSuggestion} />
       <SearchContainer>
-        <TextField>
+        <InputWithSuggestion>
           <Input
             placeholder="Digite o nome do medicamento"
             placeholderTextColor="#95a0b8"
+            onChangeText={handleChangeSearchText}
           />
-        </TextField>
+        </InputWithSuggestion>
         <SearchButton>
           <MaterialIcons name="search" size={24} color="#265ad2" />
         </SearchButton>
