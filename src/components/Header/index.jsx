@@ -7,6 +7,7 @@ import HeaderSearch from '../HeaderSearch';
 const Container = styled.View`
   height: ${(props) => 206 - props.statusBarHeight}px;
   padding: 15px;
+  z-index: 200;
 `;
 
 const TitleOptionsContainer = styled.View`

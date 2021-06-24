@@ -9,6 +9,7 @@ import BottomNavigationLittleBall from '../BottomNavigationLittleBall';
 const Container = styled.View`
   height: 106px;
   padding: 5px;
+  z-index: 200;
 `;
 
 const MenuContainer = styled.View`

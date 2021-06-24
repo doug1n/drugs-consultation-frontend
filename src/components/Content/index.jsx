@@ -9,6 +9,7 @@ import FavoritesScreen from '../../screens/Favorites';
 const Container = styled.View`
   background-color: #fff;
   flex: 1;
+  z-index: 100;
 `;
 
 export default function Content() {
