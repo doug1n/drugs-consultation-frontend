@@ -1,33 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import { Ionicons } from '@expo/vector-icons';
 
-import HeaderSearch from '../HeaderSearch';
+import HeaderSearchByDrugNameComponent from '../HeaderSearchByDrugName';
+import HeaderTitleConfigsComponent from '../HeaderTitleConfigs';
+import HeaderSearchByAtcComponent from '../HeaderSearchByAtc';
+
+const DEFAULT_HEIGHT = 206.5;
+const HEIGHT_WITH_ACTIVE_SEARCH_BY_ATC = 226.5;
 
 const Container = styled.View`
-  height: ${(props) => 206 - props.statusBarHeight}px;
+  height: ${(props) => props.height - props.statusBarHeight}px;
   padding: 15px;
-  z-index: 200;
 `;
 
-const TitleOptionsContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
+const HeaderTitleConfigs = styled(HeaderTitleConfigsComponent)`
+  z-index: 3;
 `;
 
-const Text = styled.Text`
-  color: white;
-  font-size: 24px;
+const HeaderSearchByDrugName = styled(HeaderSearchByDrugNameComponent)`
+  z-index: 2;
 `;
 
-export default function Header({ statusBarHeight }) {
+const HeaderSearchByAtc = styled(HeaderSearchByAtcComponent)`
+  z-index: 1;
+`;
+
+export default function Header({ style, statusBarHeight }) {
+  const [height, setHeight] = useState(DEFAULT_HEIGHT);
+  const [activeSearchByAtc, setActiveSearchByAtc] = useState(false);
+
+  const handleActivateSearchByAtc = () => {
+    setActiveSearchByAtc(true);
+    setHeight(HEIGHT_WITH_ACTIVE_SEARCH_BY_ATC);
+  };
+
+  const handleDisableSearchByAtc = () => {
+    setActiveSearchByAtc(false);
+    setHeight(DEFAULT_HEIGHT);
+  };
+
   return (
-    <Container statusBarHeight={statusBarHeight}>
-      <TitleOptionsContainer>
-        <Text>Medicamentos</Text>
-        <Ionicons name="settings" size={24} color="white" />
-      </TitleOptionsContainer>
-      <HeaderSearch />
+    <Container style={style} height={height} statusBarHeight={statusBarHeight}>
+      <HeaderTitleConfigs />
+      <HeaderSearchByDrugName show={!activeSearchByAtc} />
+      <HeaderSearchByAtc
+        active={activeSearchByAtc}
+        onActive={handleActivateSearchByAtc}
+        onDisable={handleDisableSearchByAtc}
+      />
     </Container>
   );
 }
