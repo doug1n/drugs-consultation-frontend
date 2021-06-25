@@ -33,7 +33,7 @@ export default function BottomNavigationLittleBall({ page }) {
   useEffect(() => {
     Animated.timing(bottomNavigationAnim, {
       toValue: getBallPadding(page),
-      duration: 500,
+      duration: 250,
       useNativeDriver: false,
     }).start();
   }, [page]);

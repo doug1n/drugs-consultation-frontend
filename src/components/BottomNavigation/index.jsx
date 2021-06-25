@@ -9,7 +9,6 @@ import BottomNavigationLittleBall from '../BottomNavigationLittleBall';
 const Container = styled.View`
   height: 106px;
   padding: 5px;
-  z-index: 200;
 `;
 
 const MenuContainer = styled.View`
@@ -19,11 +18,11 @@ const MenuContainer = styled.View`
   justify-content: center;
 `;
 
-export default function BottomNavigation({ page, onSetPage }) {
+export default function BottomNavigation({ style, page, onSetPage }) {
   const history = useHistory();
 
   return (
-    <Container>
+    <Container style={style}>
       <MenuContainer>
         <BottomNavigationButton
           onPress={() => {

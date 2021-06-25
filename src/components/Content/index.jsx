@@ -9,12 +9,11 @@ import FavoritesScreen from '../../screens/Favorites';
 const Container = styled.View`
   background-color: #fff;
   flex: 1;
-  z-index: 100;
 `;
 
-export default function Content() {
+export default function Content({ style }) {
   return (
-    <Container>
+    <Container style={style}>
       <Route exact path="/" component={HomeScreen} />
       <Route path="/history" component={HistoryScreen} />
       <Route path="/favorites" component={FavoritesScreen} />
