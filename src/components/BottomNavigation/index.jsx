@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { FontAwesome, Foundation } from '@expo/vector-icons';
-import { useHistory } from 'react-router-native';
 
+import screens from '../../screens';
 import BottomNavigationButton from '../BottomNavigationButton';
 import BottomNavigationLittleBall from '../BottomNavigationLittleBall';
 
@@ -19,31 +19,26 @@ const MenuContainer = styled.View`
 `;
 
 export default function BottomNavigation({ style, page, onSetPage }) {
-  const history = useHistory();
-
   return (
     <Container style={style}>
       <MenuContainer>
         <BottomNavigationButton
           onPress={() => {
-            onSetPage(0);
-            history.push('/');
+            onSetPage(screens.HOME);
           }}
           label="Início"
           icon={<Foundation name="home" size={38} color="white" />}
         />
         <BottomNavigationButton
           onPress={() => {
-            onSetPage(1);
-            history.push('/favorites');
+            onSetPage(screens.FAVORITES);
           }}
           label="Favoritos"
           icon={<FontAwesome name="star" size={38} color="white" />}
         />
         <BottomNavigationButton
           onPress={() => {
-            onSetPage(2);
-            history.push('/history');
+            onSetPage(screens.HISTORY);
           }}
           label="Histórico"
           icon={<FontAwesome name="bookmark" size={38} color="white" />}

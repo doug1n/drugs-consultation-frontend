@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import Constants from 'expo-constants';
-import { NativeRouter } from 'react-router-native';
 
+import { AppContext, AppProvider } from './AppContext';
 import HeaderComponent from './components/Header';
 import BottomNavigationComponent from './components/BottomNavigation';
 import ContentComponent from './components/Content';
@@ -26,21 +26,19 @@ const Content = styled(ContentComponent)`
 `;
 
 export default function Main() {
-  const [page, setPage] = useState(0);
-
-  const handleSetPage = (newPage) => {
-    setPage(newPage);
-  };
-
   return (
-    <NativeRouter>
-      <DismissKeyboard>
-        <Container style={{ paddingTop: Constants.statusBarHeight }}>
-          <Header statusBarHeight={Constants.statusBarHeight} />
-          <Content page={page} />
-          <BottomNavigation page={page} onSetPage={handleSetPage} />
-        </Container>
-      </DismissKeyboard>
-    </NativeRouter>
+    <AppProvider>
+      <AppContext.Consumer>
+        {({ currentPage, setCurrentPage }) => (
+          <DismissKeyboard>
+            <Container style={{ paddingTop: Constants.statusBarHeight }}>
+              <Header page={currentPage} onSetPage={setCurrentPage} />
+              <Content page={currentPage} />
+              <BottomNavigation page={currentPage} onSetPage={setCurrentPage} />
+            </Container>
+          </DismissKeyboard>
+        )}
+      </AppContext.Consumer>
+    </AppProvider>
   );
 }

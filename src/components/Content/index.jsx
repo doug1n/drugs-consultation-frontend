@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/native';
-import { Route } from 'react-router-native';
 
+import screens from '../../screens';
+import { AppContext } from '../../AppContext';
 import HomeScreen from '../../screens/Home';
 import HistoryScreen from '../../screens/History';
 import FavoritesScreen from '../../screens/Favorites';
@@ -12,11 +13,13 @@ const Container = styled.View`
 `;
 
 export default function Content({ style }) {
+  const { currentPage } = useContext(AppContext);
+
   return (
     <Container style={style}>
-      <Route exact path="/" component={HomeScreen} />
-      <Route path="/history" component={HistoryScreen} />
-      <Route path="/favorites" component={FavoritesScreen} />
+      {currentPage === screens.HOME && <HomeScreen />}
+      {currentPage === screens.HISTORY && <HistoryScreen />}
+      {currentPage === screens.FAVORITES && <FavoritesScreen />}
     </Container>
   );
 }
