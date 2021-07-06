@@ -23,7 +23,7 @@ export default function BottomNavigationLittleBall({ page }) {
 
     const squareWidth = windowWidth / 3;
     const halfSquareWidth = squareWidth / 2;
-    const halfSquarePlusPageWidth = halfSquareWidth * ((page * 2) + 1);
+    const halfSquarePlusPageWidth = halfSquareWidth * (page * 2 + 1);
     const halfSquareWidthMinusHalfBallSizeWidth =
       halfSquarePlusPageWidth - 4 * (page + 1);
 
