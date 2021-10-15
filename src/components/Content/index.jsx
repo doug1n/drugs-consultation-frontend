@@ -6,6 +6,7 @@ import { AppContext } from '../../AppContext';
 import HomeScreen from '../../screens/Home';
 import HistoryScreen from '../../screens/History';
 import FavoritesScreen from '../../screens/Favorites';
+import ProductScreen from '../../screens/Product';
 
 const Container = styled.View`
   background-color: #fff;
@@ -20,6 +21,7 @@ export default function Content({ style }) {
       {currentPage === screens.HOME && <HomeScreen />}
       {currentPage === screens.HISTORY && <HistoryScreen />}
       {currentPage === screens.FAVORITES && <FavoritesScreen />}
+      {currentPage === screens.CHANGE_MEDICINE && <ProductScreen />}
     </Container>
   );
 }
