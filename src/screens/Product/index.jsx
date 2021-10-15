@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 
-import HeaderTitleConfigsComponent from '../../components/HeaderTitleConfigs';
 import TopBarProduct from '../../components/TopBarProduct';
 import TabInformation from '../../components/TabInformation';
 import TabDocumentation from '../../components/TabDocumentation';
@@ -23,10 +22,6 @@ const Header = styled.View`
   height: 10%;
   background-color: #265ad2;
   z-index: 6;
-`;
-
-const HeaderTitleConfigs = styled(HeaderTitleConfigsComponent)`
-  z-index: 3;
 `;
 
 export default function Product() {
@@ -87,9 +82,7 @@ export default function Product() {
 
   return (
     <Container horizontal={false}>
-      <Header>
-        <HeaderTitleConfigs />
-      </Header>
+      <Header></Header>
       <TopBarProduct selectedTab={selectedTab} onChangeTab={handleChangeTab} />
       {selectedTab === INFORMATION && (
         <TabInformation medicalInputs={medicalInputs} group={group} />

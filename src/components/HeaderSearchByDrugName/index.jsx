@@ -5,7 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import HeaderSearchSuggestionComponent from '../HeaderSearchSuggestion';
 
 const Container = styled.View`
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: 5px;
   margin-right: 5px;
 `;

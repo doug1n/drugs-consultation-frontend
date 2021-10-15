@@ -5,7 +5,6 @@ import { Animated } from 'react-native';
 
 import screens from '../../screens';
 import HeaderSearchByDrugNameComponent from '../HeaderSearchByDrugName';
-import HeaderTitleConfigsComponent from '../HeaderTitleConfigs';
 import HeaderSearchByAtcComponent from '../HeaderSearchByAtc';
 
 const DEFAULT_HEIGHT = 206.5;
@@ -13,10 +12,6 @@ const HEIGHT_WITH_ACTIVE_SEARCH_BY_ATC = 226.5;
 
 const Container = styled(Animated.View)`
   padding: 0px 15px;
-`;
-
-const HeaderTitleConfigs = styled(HeaderTitleConfigsComponent)`
-  z-index: 3;
 `;
 
 const HeaderSearchByDrugName = styled(HeaderSearchByDrugNameComponent)`
@@ -56,7 +51,6 @@ export default function Header({ style, page, onSetPage }) {
 
   return (
     <Container style={[style, { height: heightAnim }]}>
-      <HeaderTitleConfigs />
       <HeaderSearchByDrugName show={!activeSearchByAtc} />
       <HeaderSearchByAtc
         page={page}

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import Constants from 'expo-constants';
 
 import { AppContext, AppProvider } from './AppContext';
 import HeaderComponent from './components/Header';
@@ -31,7 +30,7 @@ export default function Main() {
       <AppContext.Consumer>
         {({ currentPage, setCurrentPage }) => (
           <DismissKeyboard>
-            <Container style={{ paddingTop: Constants.statusBarHeight }}>
+            <Container>
               <Header page={currentPage} onSetPage={setCurrentPage} />
               <Content page={currentPage} />
               <BottomNavigation page={currentPage} onSetPage={setCurrentPage} />
