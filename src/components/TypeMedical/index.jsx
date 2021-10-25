@@ -22,9 +22,7 @@ const Text = styled.Text`
   padding-left: 5px;
 `;
 
-export default function TypeMedical() {
-  const [itemSelected, setItemSelected] = useState(null);
-
+export default function TypeMedical({ selected }) {
   const types = [
     {
       icon: <FontAwesome5 name="pills" size={25} color="#fff" />,
@@ -56,12 +54,11 @@ export default function TypeMedical() {
 
       <ScrollView horizontal>
         {types.map((type, i) => (
-          <Pressable key={i}>
+          <Pressable key={type.description}>
             <EachItemType
-              selected={i === itemSelected}
+              selected={i === selected}
               description={type.description}
               icon={type.icon}
-              onTouchStart={() => setItemSelected(i)}
             />
           </Pressable>
         ))}

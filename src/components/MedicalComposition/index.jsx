@@ -28,13 +28,13 @@ const ContainerIcon = styled.View`
   background: #ecf2ff;
 `;
 
-export default function MedicalComposition() {
+export default function MedicalComposition({ name }) {
   return (
     <Container>
       <ContainerIcon>
         <MaterialCommunityIcons name="pill" size={70} color="#265ad2" />
       </ContainerIcon>
-      <DescriptionProduct>Medicamento + Composição</DescriptionProduct>
+      <DescriptionProduct>{name}</DescriptionProduct>
     </Container>
   );
 }

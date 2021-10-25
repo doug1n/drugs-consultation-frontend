@@ -29,10 +29,11 @@ export default function HeaderSearchSuggestion({
   loading,
   suggestions,
 }) {
-  const { setCurrentPage } = useContext(AppContext);
+  const { setCurrentPage, setCurrentDrugData } = useContext(AppContext);
 
-  const handleSuggestionPress = (suggestionId) => {
+  const handleSuggestionPress = (suggestion) => {
     setCurrentPage(screens.CHANGE_MEDICINE);
+    setCurrentDrugData(suggestion);
   };
 
   return (
@@ -47,7 +48,7 @@ export default function HeaderSearchSuggestion({
             <HeaderSearchSuggestionOption
               key={suggestion.id}
               onPress={() => {
-                handleSuggestionPress(suggestion.id);
+                handleSuggestionPress(suggestion);
               }}
               description={suggestion.description}
             />

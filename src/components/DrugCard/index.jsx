@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   min-height: 72px;
   background-color: #e5ebf8;
   border-radius: 5px;
@@ -34,9 +34,9 @@ const DrugNameSubtitle = styled.Text`
   font-size: 14px;
 `;
 
-export default function DrugCard({ title, subtitle }) {
+export default function DrugCard({ title, subtitle, onPress }) {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <IconAndNameContainer>
         <PillIcon name="pill" size={24} color="#95a0b8" />
         <DrugNameContainer>

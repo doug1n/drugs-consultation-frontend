@@ -17,11 +17,10 @@ const Container = styled.View`
 `;
 
 export default function Product() {
-  const { setCurrentPage, previousPage } = useContext(AppContext);
+  const { setCurrentPage, previousPage, currentDrugData } =
+    useContext(AppContext);
 
   const [selectedTab, setSelectedTab] = useState(INFORMATION);
-  const medicalInputs = ['Dipirona', 'Isometepteno', 'Cafeína'];
-  const group = ['Analgésico', 'Miorrelaxantes (Relaxante muscular)'];
   const locations = [
     {
       latitude: -16.7722688,
@@ -86,11 +85,15 @@ export default function Product() {
         onBack={handleBack}
       />
       {selectedTab === INFORMATION && (
-        <TabInformation medicalInputs={medicalInputs} group={group} />
+        <TabInformation drugData={currentDrugData} />
       )}
-      {selectedTab === DOCUMENTATION && <TabDocumentation />}
+      {selectedTab === DOCUMENTATION && (
+        <TabDocumentation drugData={currentDrugData} />
+      )}
       {selectedTab === DISTRIBUTION_STATIONS && (
-        <DistributionPoints locations={locations} />
+        <DistributionPoints
+          locations={currentDrugData?.locations ?? locations}
+        />
       )}
     </Container>
   );

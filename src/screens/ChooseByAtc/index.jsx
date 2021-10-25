@@ -4,6 +4,8 @@ import styled from 'styled-components/native';
 import { AppContext } from '../../AppContext';
 
 import AtcCard from '../../components/AtcCard';
+import DrugCard from '../../components/DrugCard';
+import screens from '../../screens';
 import { getAtcs } from '../../services/drugsConsultationApi';
 
 const FlatList = styled.FlatList`
@@ -13,7 +15,8 @@ const FlatList = styled.FlatList`
 `;
 
 export default function ChooseByAtc() {
-  const { currentAtc, setCurrentAtc } = useContext(AppContext);
+  const { currentAtc, setCurrentAtc, setCurrentPage, setCurrentDrugData } =
+    useContext(AppContext);
   const [atcs, setAtcs] = useState([]);
 
   useEffect(() => {
@@ -29,19 +32,29 @@ export default function ChooseByAtc() {
   return (
     <FlatList
       data={atcs}
-      renderItem={({ item }) => (
-        <AtcCard
-          title={item.description}
-          onPress={() => {
-            setCurrentAtc((current) =>
-              current.concat({
-                id: item.id,
-                description: item.description,
-              })
-            );
-          }}
-        />
-      )}
+      renderItem={({ item }) =>
+        item.isDrug ? (
+          <DrugCard
+            title={item.description}
+            onPress={() => {
+              setCurrentPage(screens.CHANGE_MEDICINE);
+              setCurrentDrugData(item);
+            }}
+          />
+        ) : (
+          <AtcCard
+            title={item.description}
+            onPress={() => {
+              setCurrentAtc((current) =>
+                current.concat({
+                  id: item.id,
+                  description: item.description,
+                })
+              );
+            }}
+          />
+        )
+      }
     />
   );
 }

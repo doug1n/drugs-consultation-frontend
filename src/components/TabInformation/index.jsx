@@ -4,16 +4,19 @@ import MedicalComposition from '../MedicalComposition';
 import MedicalInputs from '../MedicalInputs';
 import TypeMedical from '../TypeMedical';
 
-export default function TabInformation({ medicalInputs, group }) {
+export default function TabInformation({ drugData }) {
+  const medicalInputs = ['Dipirona', 'Isometepteno', 'Cafeína'];
+  const group = ['Analgésico', 'Miorrelaxantes (Relaxante muscular)'];
+
   return (
     <>
-      <MedicalComposition />
+      <MedicalComposition name={drugData.description} />
 
-      <TypeMedical />
+      <TypeMedical selected={drugData.type ?? 1} />
 
-      <MedicalInputs inputsMedical={medicalInputs} />
+      <MedicalInputs inputsMedical={drugData.medicalInputs ?? medicalInputs} />
 
-      <PharmacologicalGroup group={group} />
+      <PharmacologicalGroup group={drugData.group ?? group} />
     </>
   );
 }
