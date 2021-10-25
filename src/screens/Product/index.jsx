@@ -1,30 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components/native';
 
 import TopBarProduct from '../../components/TopBarProduct';
 import TabInformation from '../../components/TabInformation';
 import TabDocumentation from '../../components/TabDocumentation';
 import DistributionPoints from '../../components/DistributionPoints';
+import { AppContext } from '../../AppContext';
 
-const INFORMATION = 1;
-const DOCUMENTATION = 2;
-const DISTRIBUTION_STATIONS = 3;
+const INFORMATION = 0;
+const DOCUMENTATION = 1;
+const DISTRIBUTION_STATIONS = 2;
 
 const Container = styled.View`
   height: 100%;
   background-color: #e6e6e6;
 `;
 
-const Header = styled.View`
-  display: flex;
-  justify-content: center;
-  padding: 0 10px;
-  height: 10%;
-  background-color: #265ad2;
-  z-index: 6;
-`;
-
 export default function Product() {
+  const { setCurrentPage, previousPage } = useContext(AppContext);
+
   const [selectedTab, setSelectedTab] = useState(INFORMATION);
   const medicalInputs = ['Dipirona', 'Isometepteno', 'Cafeína'];
   const group = ['Analgésico', 'Miorrelaxantes (Relaxante muscular)'];
@@ -80,10 +74,17 @@ export default function Product() {
     setSelectedTab(tab);
   };
 
+  const handleBack = () => {
+    setCurrentPage(previousPage);
+  };
+
   return (
-    <Container horizontal={false}>
-      <Header></Header>
-      <TopBarProduct selectedTab={selectedTab} onChangeTab={handleChangeTab} />
+    <Container>
+      <TopBarProduct
+        selectedTab={selectedTab}
+        onChangeTab={handleChangeTab}
+        onBack={handleBack}
+      />
       {selectedTab === INFORMATION && (
         <TabInformation medicalInputs={medicalInputs} group={group} />
       )}

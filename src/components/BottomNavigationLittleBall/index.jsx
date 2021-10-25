@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
+import screens from '../../screens';
 
 const Container = styled(Animated.View)`
   height: 23px;
@@ -20,6 +21,10 @@ export default function BottomNavigationLittleBall({ page }) {
 
   const getBallPadding = (page) => {
     const windowWidth = Dimensions.get('window').width;
+
+    if (page === screens.CHOOSE_BY_ATC) {
+      page = screens.HOME;
+    }
 
     const squareWidth = windowWidth / 3;
     const halfSquareWidth = squareWidth / 2;

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useEffect } from 'react/cjs/react.development';
 import styled from 'styled-components/native';
+import { AppContext } from '../../AppContext';
 
 import screens from '../../screens';
 import ButtonComponent from '../Button';
@@ -20,6 +22,28 @@ export default function HeaderSearchByAtc({
   onActive,
   onDisable,
 }) {
+  const { currentPage, currentAtc, setCurrentAtc } = useContext(AppContext);
+  const [chooseByAtc, setChooseByAtc] = useState([]);
+
+  useEffect(() => {
+    setChooseByAtc([]);
+    setCurrentAtc([]);
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (currentAtc?.[0]) {
+      setChooseByAtc([currentAtc[0]]);
+    }
+
+    if (currentAtc?.[1]) {
+      setChooseByAtc([currentAtc[0], currentAtc[1]]);
+    }
+
+    if (currentAtc?.[2]) {
+      setChooseByAtc([currentAtc[0], currentAtc[1], currentAtc[2]]);
+    }
+  }, [currentAtc]);
+
   return (
     <Container>
       {!active && <Button title="Buscar pelo ATC" onPress={onActive} />}
@@ -32,21 +56,25 @@ export default function HeaderSearchByAtc({
           />
           <AtcButton
             show={page >= screens.CHOOSE_BY_ATC}
-            title="Selecione o ATC"
+            title={chooseByAtc?.[0]?.description ?? 'Selecione o ATC'}
             active
-            italic={page === screens.CHOOSE_BY_ATC}
+            italic={currentAtc.length === 0}
           />
           <AtcButton
-            show={page >= screens.CHOOSE_BY_THERAPEUTIC_GROUP}
-            title="Selecione o grupo terapêutico"
+            show={page >= screens.CHOOSE_BY_ATC && currentAtc.length >= 1}
+            title={
+              chooseByAtc?.[1]?.description ?? 'Selecione o grupo terapêutico'
+            }
             active
-            italic={page === screens.CHOOSE_BY_THERAPEUTIC_GROUP}
+            italic={currentAtc.length === 1}
           />
           <AtcButton
-            show={page >= screens.CHOOSE_BY_PHARMACOLOGICAL_GROUP}
-            title="Selecione o grupo farmacológico"
+            show={page >= screens.CHOOSE_BY_ATC && currentAtc.length >= 2}
+            title={
+              chooseByAtc?.[2]?.description ?? 'Selecione o grupo farmacológico'
+            }
             active
-            italic={page === screens.CHOOSE_BY_PHARMACOLOGICAL_GROUP}
+            italic={currentAtc.length === 2}
           />
         </>
       )}

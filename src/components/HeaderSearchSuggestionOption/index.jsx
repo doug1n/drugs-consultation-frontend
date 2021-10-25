@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import Dash from 'react-native-dash';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const OptionContainer = styled.View``;
+const OptionContainer = styled.TouchableOpacity``;
 
 const OptionContentContainer = styled.View`
   align-items: center;
@@ -24,9 +24,9 @@ const PillIcon = styled(MaterialCommunityIcons)`
   margin-right: 10px;
 `;
 
-export default function HeaderSearchSuggestionOption({ description }) {
+export default function HeaderSearchSuggestionOption({ description, onPress }) {
   return (
-    <OptionContainer>
+    <OptionContainer onPress={onPress}>
       <Dash dashColor="#fff" dashStyle={{ height: 0.7 }} />
       <OptionContentContainer>
         <PillIcon name="pill" size={17.5} color="#fff" />

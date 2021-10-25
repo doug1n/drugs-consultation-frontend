@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 import { AppContext, AppProvider } from './AppContext';
-import HeaderComponent from './components/Header';
+import SearchBoxComponent from './components/SearchBox';
 import BottomNavigationComponent from './components/BottomNavigation';
 import ContentComponent from './components/Content';
 import DismissKeyboard from './components/DismissKeyboard';
@@ -12,7 +12,7 @@ const Container = styled.View`
   background-color: #003cbf;
 `;
 
-const Header = styled(HeaderComponent)`
+const SearchBox = styled(SearchBoxComponent)`
   z-index: 2;
 `;
 
@@ -28,14 +28,26 @@ export default function Main() {
   return (
     <AppProvider>
       <AppContext.Consumer>
-        {({ currentPage, setCurrentPage }) => (
-          <DismissKeyboard>
+        {({
+          currentPage,
+          setCurrentPage,
+          showSearchBox,
+          showBottomNavigation,
+        }) => (
+          <>
             <Container>
-              <Header page={currentPage} onSetPage={setCurrentPage} />
-              <Content page={currentPage} />
-              <BottomNavigation page={currentPage} onSetPage={setCurrentPage} />
+              {showSearchBox && (
+                <SearchBox page={currentPage} onSetPage={setCurrentPage} />
+              )}
+              <Content />
+              {showBottomNavigation && (
+                <BottomNavigation
+                  page={currentPage}
+                  onSetPage={setCurrentPage}
+                />
+              )}
             </Container>
-          </DismissKeyboard>
+          </>
         )}
       </AppContext.Consumer>
     </AppProvider>

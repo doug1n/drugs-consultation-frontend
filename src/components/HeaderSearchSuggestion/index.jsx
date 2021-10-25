@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/native';
+import { AppContext } from '../../AppContext';
 
+import screens from '../../screens';
 import HeaderSearchSuggestionOption from '../HeaderSearchSuggestionOption';
 
 const Container = styled.ScrollView`
@@ -17,16 +19,39 @@ const Spacer = styled.View`
   margin-bottom: 67px;
 `;
 
-export default function HeaderSearchSuggestion({ styled, open }) {
+const Info = styled.Text`
+  color: #fff;
+`;
+
+export default function HeaderSearchSuggestion({
+  styled,
+  open,
+  loading,
+  suggestions,
+}) {
+  const { setCurrentPage } = useContext(AppContext);
+
+  const handleSuggestionPress = (suggestionId) => {
+    setCurrentPage(screens.CHANGE_MEDICINE);
+  };
+
   return (
     open && (
       <Container styled={styled}>
-        <HeaderSearchSuggestionOption description="Butilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetável" />
-        <HeaderSearchSuggestionOption description="Butilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetável" />
-        <HeaderSearchSuggestionOption description="Butilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetável" />
-        <HeaderSearchSuggestionOption description="Butilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetável" />
-        <HeaderSearchSuggestionOption description="Butilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetável" />
-        <HeaderSearchSuggestionOption description="Butilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetávelButilbrometo de escopolamina + Dipirona sódica injetável" />
+        {loading && <Info>Carregando...</Info>}
+        {!loading && suggestions.length === 0 && (
+          <Info>Nenhum resultado encontrado.</Info>
+        )}
+        {!loading &&
+          suggestions.map((suggestion) => (
+            <HeaderSearchSuggestionOption
+              key={suggestion.id}
+              onPress={() => {
+                handleSuggestionPress(suggestion.id);
+              }}
+              description={suggestion.description}
+            />
+          ))}
         <Spacer />
       </Container>
     )

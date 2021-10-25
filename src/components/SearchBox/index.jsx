@@ -22,7 +22,7 @@ const HeaderSearchByAtc = styled(HeaderSearchByAtcComponent)`
   z-index: 1;
 `;
 
-export default function Header({ style, page, onSetPage }) {
+export default function SearchBox({ style, page, onSetPage }) {
   const heightAnim = useRef(
     new Animated.Value(DEFAULT_HEIGHT - Constants.statusBarHeight)
   ).current;
@@ -33,12 +33,13 @@ export default function Header({ style, page, onSetPage }) {
   const handleActivateSearchByAtc = () => {
     setActiveSearchByAtc(true);
     setHeight(HEIGHT_WITH_ACTIVE_SEARCH_BY_ATC);
+    onSetPage(screens.CHOOSE_BY_ATC);
   };
 
   const handleDisableSearchByAtc = () => {
     setActiveSearchByAtc(false);
     setHeight(DEFAULT_HEIGHT);
-    onSetPage(screens.CHOOSE_BY_ATC);
+    onSetPage(screens.HOME);
   };
 
   useEffect(() => {

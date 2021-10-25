@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import HeaderSearchSuggestionComponent from '../HeaderSearchSuggestion';
+import { getDrugs } from '../../services/drugsConsultationApi';
 
 const Container = styled.View`
   margin-top: 10px;
@@ -45,7 +46,10 @@ const HeaderSearchSuggestion = styled(HeaderSearchSuggestionComponent)`
 `;
 
 export default function HeaderSearchByDrugName({ style, show }) {
+  const [loadingSuggestion, setLoadingSuggestion] = useState(false);
   const [openSuggestion, setOpenSuggestion] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
   const handleChangeSearchText = (text) => {
     if (text) {
@@ -53,12 +57,33 @@ export default function HeaderSearchByDrugName({ style, show }) {
     } else {
       setOpenSuggestion(false);
     }
+
+    setSearchText(text);
   };
+
+  useEffect(() => {
+    setLoadingSuggestion(true);
+    getDrugs(searchText)
+      .then((response) => {
+        setSuggestions(
+          response
+            .map((drug) => ({ id: drug.id, description: drug.description }))
+            .slice(0, 30)
+        );
+      })
+      .finally(() => {
+        setLoadingSuggestion(false);
+      });
+  }, [searchText]);
 
   return (
     show && (
       <Container style={style}>
-        <HeaderSearchSuggestion open={openSuggestion} />
+        <HeaderSearchSuggestion
+          open={openSuggestion}
+          loading={loadingSuggestion}
+          suggestions={suggestions}
+        />
         <SearchContainer>
           <InputContainer>
             <Input
